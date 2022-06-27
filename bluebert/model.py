@@ -1,11 +1,11 @@
-from transformers.models.auto import AutoModelForTokenClassification #type: ignore
+from transformers.models.auto.modeling_auto import AutoModelForTokenClassification
 
 import torch
 import torch.nn as nn
 
 
 def getOriginalModel() -> AutoModelForTokenClassification :
-    """Gets a version of BlueBERT for another task on HuggingFace
+    """Gets a version of BlueBERT for the AutoModelClassification task on HuggingFace
 
     Returns:
         AutoModelForTokenClassification: BlueBERT
