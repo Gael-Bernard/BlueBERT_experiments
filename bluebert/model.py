@@ -11,6 +11,8 @@ def getOriginalModel() -> AutoModelForTokenClassification :
         AutoModelForTokenClassification: BlueBERT
     """
     model: AutoModelForTokenClassification = AutoModelForTokenClassification.from_pretrained("bionlp/bluebert_pubmed_uncased_L-24_H-1024_A-16")
+    with open("cache/model.pth", "wb") as file:
+        torch.save(model, file)
     return model
 
 
@@ -30,3 +32,20 @@ def getModelFromTorch(path:str) -> 'nn.Module|None':
     except:
         model = None
     return model
+
+
+def getModel() -> nn.Module:
+    """Tries getting the model from cache and downloads it if it is not cached
+
+    Returns:
+        nn.Module: BlueBERT
+    """
+    
+    cachedModule: 'nn.Module|None' = getModelFromTorch("cache/model.pth")
+    module: 'nn.Module'
+    
+    if cachedModule == None:
+        module = getOriginalModel() #type: ignore
+    else:
+        module = cachedModule 
+    return module
