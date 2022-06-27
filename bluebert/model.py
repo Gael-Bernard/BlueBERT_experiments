@@ -1,3 +1,5 @@
+import os
+
 from transformers.models.auto.modeling_auto import AutoModelForTokenClassification
 
 import torch
@@ -11,6 +13,7 @@ def getOriginalModel() -> AutoModelForTokenClassification :
         AutoModelForTokenClassification: BlueBERT
     """
     model: AutoModelForTokenClassification = AutoModelForTokenClassification.from_pretrained("bionlp/bluebert_pubmed_uncased_L-24_H-1024_A-16")
+    os.makedirs("cache", exist_ok=True)
     with open("cache/model.pth", "wb") as file:
         torch.save(model, file)
     return model
