@@ -1,18 +1,18 @@
 import os
 
-from transformers.models.auto.modeling_auto import AutoModelForTokenClassification
+from transformers.models.auto.modeling_auto import AutoModel
 
 import torch
 import torch.nn as nn
 
 
-def getOriginalModel() -> AutoModelForTokenClassification :
+def getOriginalModel() -> AutoModel :
     """Gets a version of BlueBERT for the AutoModelClassification task on HuggingFace
 
     Returns:
         AutoModelForTokenClassification: BlueBERT
     """
-    model: AutoModelForTokenClassification = AutoModelForTokenClassification.from_pretrained("bionlp/bluebert_pubmed_uncased_L-24_H-1024_A-16")
+    model: AutoModel = AutoModel.from_pretrained("bionlp/bluebert_pubmed_uncased_L-24_H-1024_A-16")
     os.makedirs("cache", exist_ok=True)
     with open("cache/model.pth", "wb") as file:
         torch.save(model, file)
